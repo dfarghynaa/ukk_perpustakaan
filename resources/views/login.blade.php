@@ -68,20 +68,40 @@
 <body>
     <div class="login-container">
         <div class="login-header">
-            <img src="library-logo.png" alt="Library Logo">
-            <h2>Library Login</h2>
+            <img src="{{ asset('assets/logo.png') }}" alt="Library Logo">
+            <h2>Login Perpustakaan</h2>
         </div>
+
         <form>
+            <form action="{{ route('login') }}" method="POST">
+            @csrf
             <div class="form-group">
-                <input type="email" class="form-control" id="email" placeholder="Email Address" required>
+                <input type="text" name="email" class="form-control" id="email"
+                placeholder="Email Address" required>
+                @if ($errors->has('email'))
+                <div class="alert alert-danger" role="alert">
+                  {{ $errors->first('email') }}
+                </div>
+                @endif
             </div>
-            <div class="form-group">
-                <input type="password" class="form-control" id="password" placeholder="Password" required>
-            </div>
-            <button type="submit" class="btn btn-primary btn-login">Login</button>
+
+            <div class="form-group mb-3">
+                <input type="password" name="password" class="form-control" id="password" 
+                placeholder="Password" required>
+                @if ($errors->has('password'))
+                <div class="alert alert-danger" role="alert">
+                    {{ $errors->first('password') }}
+                </div>
+                @endif
+                
+                <button type="submit" class="btn btn-primary btn-block mt-3">Login</button>
+                
+                <p class="text-center mt-3">
+                    Tidak punya akun? <a href="{{ route('register') }}">Buat Akun</a>
+                </p>
         </form>
         <div class="text-center">
-            <a href="#">Forgot password?</a>
+            <a href="#">Lupa Password?</a>
         </div>
     </div>
 
